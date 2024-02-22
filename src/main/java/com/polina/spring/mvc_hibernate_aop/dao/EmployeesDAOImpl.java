@@ -3,6 +3,7 @@ package com.polina.spring.mvc_hibernate_aop.dao;
 import com.polina.spring.mvc_hibernate_aop.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,22 @@ public class EmployeesDAOImpl implements EmployeeDAO {
     @Override
     public void saveEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(employee);
+        session.saveOrUpdate(employee);
+    }
+
+    @Override
+    public Employee getEmployee(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Employee.class, id);
+    }
+
+    @Override
+    public void deleteEmployee(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Employee> query = session.createQuery("delete from Employee "+
+                "where id = :empId");
+        query.setParameter("empId", id);
+        query.executeUpdate();
+       // session.delete(session.get(Employee.class, id));
     }
 }
