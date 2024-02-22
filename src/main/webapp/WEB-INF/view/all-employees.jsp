@@ -17,13 +17,17 @@
     </thead>
     <c:forEach items="${allEmps}" var="emp"  varStatus="status" >
         <jsp:useBean id="emp" type="com.polina.spring.mvc_hibernate_aop.entity.Employee"/>
-         <tr>
+     <tr>
             <td>${emp.name}</td>
             <td>${emp.surname}</td>
-            <td>${emp.department}</td>
+            <td>${emp.department} ${status.index}</td>
             <td>${emp.salary}</td>
         </tr>
     </c:forEach>
+
+    <br>
+    <input type="button" value="add" onclick="window.location.href = 'addNewEmployee'"/>
+    <br>
 
 </table>
 </body>

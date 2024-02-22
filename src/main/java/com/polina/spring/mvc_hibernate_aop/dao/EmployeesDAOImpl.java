@@ -21,4 +21,10 @@ public class EmployeesDAOImpl implements EmployeeDAO {
                 .createQuery("from Employee", Employee.class)
                 .getResultList();
     }
+
+    @Override
+    public void saveEmployee(Employee employee) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(employee);
+    }
 }
